@@ -184,24 +184,69 @@
             transition: all 0.6s ease;
         }
 
+        /* IMPROVED PROGRAM TABLE */
         .program-table {
             background: white;
             border: 3px solid var(--pink);
             border-radius: 25px;
-            padding: 28px 25px;
+            padding: 28px 20px;
             margin-bottom: 40px;
         }
 
         .program-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.7s ease;
-            padding: 12px 0;
+            padding: 14px 8px;
             border-bottom: 1px dashed var(--pink);
+            flex-wrap: wrap;           /* Allow wrapping on very small screens */
+            gap: 8px;
         }
         
-        .program-row:last-child { border-bottom: none; }
-        .program-row.visible { opacity: 1; transform: translateY(0); }
+        .program-row:last-child { 
+            border-bottom: none; 
+        }
+        
+        .program-row.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        .program-event {
+            font-weight: 600;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .program-time {
+            text-align: right;
+            white-space: nowrap;
+            color: var(--dark);
+            font-size: 1.02rem;
+        }
+
+        /* Extra mobile fix */
+        @media (max-width: 576px) {
+            .program-row {
+                padding: 16px 10px;
+                font-size: 1rem;
+            }
+            .program-event {
+                min-width: 100%;
+                text-align: left;
+                margin-bottom: 4px;
+            }
+            .program-time {
+                text-align: left;
+                width: 100%;
+            }
+            .program-table {
+                padding: 24px 18px;
+            }
+        }
 
         .made-by {
             background: #3a2a35;
@@ -312,11 +357,26 @@
         <div class="container pb-4">
             <h2 class="section-title">Program's</h2>
             <div class="program-table" id="programTable">
-                <div class="program-row" data-delay="300"><strong>परमीन भोज</strong> <span class="float-end">21/04/26 (Tue) &nbsp; 6 PM</span></div>
-                <div class="program-row" data-delay="600"><strong>Departure Of Barat</strong> <span class="float-end">22/04/26 (Wed) &nbsp; 4 PM</span></div>
-                <div class="program-row" data-delay="900"><strong>Nikah</strong> <span class="float-end">22/04/26 (Wed) &nbsp; 8 PM</span></div>
-                <div class="program-row" data-delay="1200"><strong>Ret. Of Barat</strong> <span class="float-end">23/04/26 (Thur) &nbsp; 7 AM</span></div>
-                <div class="program-row" data-delay="1500"><strong>Dawat-E-Waleema</strong> <span class="float-end">24/04/26 (Fri) &nbsp; 7 PM</span></div>
+                <div class="program-row" data-delay="300">
+                    <div class="program-event"><strong>परमीन भोज</strong></div>
+                    <div class="program-time">21/04/26 (Tue) &nbsp; 6 PM</div>
+                </div>
+                <div class="program-row" data-delay="600">
+                    <div class="program-event"><strong>Departure Of Barat</strong></div>
+                    <div class="program-time">22/04/26 (Wed) &nbsp; 4 PM</div>
+                </div>
+                <div class="program-row" data-delay="900">
+                    <div class="program-event"><strong>Nikah</strong></div>
+                    <div class="program-time">22/04/26 (Wed) &nbsp; 8 PM</div>
+                </div>
+                <div class="program-row" data-delay="1200">
+                    <div class="program-event"><strong>Ret. Of Barat</strong></div>
+                    <div class="program-time">23/04/26 (Thur) &nbsp; 7 AM</div>
+                </div>
+                <div class="program-row" data-delay="1500">
+                    <div class="program-event"><strong>Dawat-E-Waleema</strong></div>
+                    <div class="program-time">24/04/26 (Fri) &nbsp; 7 PM</div>
+                </div>
             </div>
         </div>
 
@@ -351,7 +411,6 @@
             if (nameFromUrl) {
                 guestInput.value = nameFromUrl.toUpperCase();
                 viewBtn.classList.add('active');
-                // Auto open invitation
                 setTimeout(() => showInvitation(), 600);
             }
 
@@ -425,7 +484,6 @@
             });
         }
 
-        // Close popup on click
         document.getElementById('zeyaPopup').addEventListener('click', function() {
             this.style.display = 'none';
             guestInput.value = '';
